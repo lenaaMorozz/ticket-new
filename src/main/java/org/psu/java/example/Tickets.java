@@ -27,8 +27,8 @@ import java.util.List;
 @SpringBootApplication
 //@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@ComponentScan("org.psu.java.example.context")
-public class Tickets implements CommandLineRunner {
+@ComponentScan({"org.psu.java.example.context", "org.psu.java.example.presentation"})
+public class Tickets {
     FortunateTicketService fortunateTicketServiceForEven;
     FortunateTicketService fortunateTicketServiceForMultipleOfFive;
     ApplicationContext context;
@@ -46,41 +46,41 @@ public class Tickets implements CommandLineRunner {
         SpringApplication.run(Tickets.class);
     }
 
-    @Override
-    public void run(String... args) {
-        log.info("Hello world Spring Boot style!");
-//        var serviceForRecordTicketGenerator = context.getBean(FortunateTicketService.class);
-        var recordTicketGenerator = context.getBean("recordTicketGenerator", TicketGenerator.class);
-
-        var count = fortunateTicketServiceForEven.count(recordTicketGenerator.getTickets());
-        log.info(String.valueOf(count));
-
-//        self.calculate("recordTicketGenerator");
-//        self.calculate("recordTicketGenerator");
+//    @Override
+//    public void run(String... args) {
+//        log.info("Hello world Spring Boot style!");
+////        var serviceForRecordTicketGenerator = context.getBean(FortunateTicketService.class);
+//        var recordTicketGenerator = context.getBean("recordTicketGenerator", TicketGenerator.class);
 //
-//        ticketGenerator
-//                .stream()
-//                .map(TicketGenerator::getTickets)
-//                .mapToInt(fortunateTicketService::count)
-//                .mapToObj(String::valueOf)
-//                .forEach(log::info);
-
-        var eightDigitsTicketGenerator = context.getBean("eightDigitsTicketGenerator", TicketGenerator.class);
-//        var serviceForEightDigitsTicketGenerator = context.getBean(FortunateTicketService.class);
-
-        var eightDigitsTicketCount = fortunateTicketServiceForEven.count(eightDigitsTicketGenerator.getTickets());
-        log.info(String.valueOf(eightDigitsTicketCount));
-
-        var fourDigitsTicketGenerator = context.getBean("fourDigitsTicketGenerator", TicketGenerator.class);
-        var fourDigitsTicketCount = fortunateTicketServiceForMultipleOfFive.count(fourDigitsTicketGenerator.getTickets());
-        log.info(String.valueOf(fourDigitsTicketCount));
-    }
-
-//    private void calculate(String generatorName) {
-//        var serviceForRecordTicketGenerator = context.getBean(FortunateTicketService.class);
-//        var recordTicketGenerator = context.getBean(generatorName, TicketGenerator.class);
-//
-//        var count = serviceForRecordTicketGenerator.count(recordTicketGenerator.getTickets());
+//        var count = fortunateTicketServiceForEven.count(recordTicketGenerator.getTickets());
 //        log.info(String.valueOf(count));
+//
+////        self.calculate("recordTicketGenerator");
+////        self.calculate("recordTicketGenerator");
+////
+////        ticketGenerator
+////                .stream()
+////                .map(TicketGenerator::getTickets)
+////                .mapToInt(fortunateTicketService::count)
+////                .mapToObj(String::valueOf)
+////                .forEach(log::info);
+//
+//        var eightDigitsTicketGenerator = context.getBean("eightDigitsTicketGenerator", TicketGenerator.class);
+////        var serviceForEightDigitsTicketGenerator = context.getBean(FortunateTicketService.class);
+//
+//        var eightDigitsTicketCount = fortunateTicketServiceForEven.count(eightDigitsTicketGenerator.getTickets());
+//        log.info(String.valueOf(eightDigitsTicketCount));
+//
+//        var fourDigitsTicketGenerator = context.getBean("fourDigitsTicketGenerator", TicketGenerator.class);
+//        var fourDigitsTicketCount = fortunateTicketServiceForMultipleOfFive.count(fourDigitsTicketGenerator.getTickets());
+//        log.info(String.valueOf(fourDigitsTicketCount));
 //    }
+//
+////    private void calculate(String generatorName) {
+////        var serviceForRecordTicketGenerator = context.getBean(FortunateTicketService.class);
+////        var recordTicketGenerator = context.getBean(generatorName, TicketGenerator.class);
+////
+////        var count = serviceForRecordTicketGenerator.count(recordTicketGenerator.getTickets());
+////        log.info(String.valueOf(count));
+////    }
 }

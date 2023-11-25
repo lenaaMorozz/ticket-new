@@ -18,7 +18,7 @@ import java.util.function.UnaryOperator;
  * Конфигурация
  */
 @Configuration
-@ComponentScan(basePackageClasses = TicketImpl.class)
+@ComponentScan(basePackageClasses = {TicketImpl.class, FortunateTicketService.class})
 public class Config {
     @Bean
     @Scope("prototype")
