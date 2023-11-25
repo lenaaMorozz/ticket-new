@@ -4,5 +4,7 @@ package org.psu.java.example.infrastructure;
  * Тип возвращаемого генератора
  */
 public enum GeneratorType {
-    SIX, EIGHT;
+    FOUR,
+    SIX,
+    EIGHT;
 }

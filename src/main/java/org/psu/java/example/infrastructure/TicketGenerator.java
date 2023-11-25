@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.psu.java.example.domain.Ticket;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.stream.IntStream;
 public interface TicketGenerator {
     static TicketGenerator getInstance(GeneratorType type) {
         return switch (type) {
+            case FOUR -> new FourDigitsTicketGenerator();
             case SIX -> new RecordTicketGenerator();
             case EIGHT -> new EightDigitsTicketGenerator();
             default -> throw new IllegalArgumentException();
@@ -50,6 +52,26 @@ abstract class AbstractGenerator implements TicketGenerator {
                 .of(number)
                 .filter(n -> number >= 0 && number < maxNumber)
                 .map(this::toTicket);
+    }
+}
+
+@Service
+class FourDigitsTicketGenerator extends AbstractGenerator {
+
+    public FourDigitsTicketGenerator() {
+        super(4);
+    }
+
+    @Override
+    protected Ticket toTicket(int number) {
+        return  (TheTicket) () -> number;
+    }
+
+    interface TheTicket extends Ticket {
+        @Override
+        default int getLength() {
+            return 4;
+        }
     }
 }
 
@@ -93,6 +115,7 @@ class SixDigitsTicketGenerator implements TicketGenerator {
 }
 
 @Service
+@Scope("prototype")
 @Primary
 class RecordTicketGenerator extends AbstractGenerator {
 
